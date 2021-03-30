@@ -4,6 +4,7 @@ const { getUsers, saveUsers, updateUsers, deleteUsers } = require('../controller
 const { emailExists, userNameExists } = require('../helpers/db-validators');
 const { validateFields } = require('../middlewares/validate-fields');
 const { validateJWT } = require('../middlewares/validate-jwt');
+const { verifyUser } = require('../middlewares/verify-user');
 const router = Router();
 
 router.get('/', getUsers);
@@ -22,11 +23,13 @@ router.post('/',[
 router.put('/:id',[
     validateJWT,
     check('id','must be a mngoID').isMongoId(),
+    verifyUser,
     validateFields
 ] ,updateUsers);
 
 router.delete('/:id',[
-    validateJWT
+    validateJWT,
+    verifyUser
 ], deleteUsers);
 
 module.exports = router;

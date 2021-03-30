@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const { Types } = require('mongoose');
+const user = require('../models/user');
 
 const getUsers = async(req,res)=>{
     try {
