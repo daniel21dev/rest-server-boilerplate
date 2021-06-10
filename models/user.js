@@ -5,11 +5,6 @@ const UserSchema = Schema({
         type: String,
         required: [true,'Name is required']
     },
-    userName:{
-        type: String,
-        required: [true,'UserName is required'],
-        unique: true
-    },
     email:{
         type: String,
         required: [true,'Email is required'],
@@ -29,8 +24,7 @@ const UserSchema = Schema({
 });
 
 UserSchema.methods.toJSON = function(){
-    const { __v, password, _id, active, ...user } = this.toObject();
-    user.uid = _id;
+    const { __v, password, active, ...user } = this.toObject();
     return user;
 }
 

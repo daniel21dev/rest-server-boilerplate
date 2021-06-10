@@ -11,12 +11,10 @@ router.get('/', getUsers);
 
 router.post('/',[
     check('name','the name is required').not().isEmpty(),
-    check('userName','the userName is required').not().isEmpty(),
     check('password','the password is required').not().isEmpty(),
     check('password','the password must be a string').isString(),
     check('email','the email is required').isEmail(),
     check('email').custom( emailExists ),
-    check('userName').custom( userNameExists ),
     validateFields
 ], saveUsers);
 

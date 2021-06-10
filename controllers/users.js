@@ -1,7 +1,5 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
-const { Types } = require('mongoose');
-const user = require('../models/user');
 
 const getUsers = async(req,res)=>{
     try {
@@ -14,10 +12,10 @@ const getUsers = async(req,res)=>{
 
 const saveUsers = async(req,res)=>{
 
-    const {name,userName,email,password} = req.body;
+    const {name,email,password} = req.body;
 
     try {
-        const user = User({name,userName,email,password});
+        const user = User({name,email,password});
         const salt = bcrypt.genSaltSync(10);
         user.password = bcrypt.hashSync(password, salt);
         await user.save();
@@ -29,7 +27,7 @@ const saveUsers = async(req,res)=>{
 
 const updateUsers = async(req,res)=>{
     const {id} = req.params; 
-    let {_id,active,userName,email,...toUpdate} = req.body;
+    let {_id,active,email,...toUpdate} = req.body;
 
     try {
         if( toUpdate.password ){
